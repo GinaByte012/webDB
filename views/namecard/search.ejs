@@ -1,0 +1,38 @@
+
+    <h1>검색화면 </h1>
+
+    <form action="/namecard/search" method="post">
+        <div class="row mb-3">
+          <label for="inputEmail3" class="col-sm-2  col-form-label"><%=kind%></label>
+          <div class="col-sm-5">
+            <input type="id" class="form-control" placeholder="이름을 입력해주세요" name="keyword" maxlength="50">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">검색</button>
+    </form>
+    <p>
+      <% if (listyn == "Y")
+        {    
+      %>
+            <table class="table">
+      <%    var i = 0;
+            while(i < ns.length) {
+      %>
+              <tr>
+                <td class="td td-smd" ><%=ns[i].loginid%></td>
+                <td><%=ns[i].name%></td>
+                <td><%=ns[i].company%></td>
+                <td><%=ns[i].company_position%></td>
+                <td><%=ns[i].email%></td>
+                <td><%=ns[i].tel%></td>
+                <td><%=ns[i].birth%></td>
+              </tr>
+      <% 
+              i++; 
+            }  
+      %>
+            </table>
+      <%
+        } 
+      %>
+    </p>

@@ -1,0 +1,20 @@
+
+
+<h1>명함 자료 생성</h1>
+  <% if(kindOfDoc == 'C') { %>
+  <form action="/namecard/create_process" method="post">
+  <% } else { %>
+  <form action="/namecard/update_process/<%=cId%>" method="post">
+
+  <% } %>
+  
+    <p><input type="text" name="loginid" value="<%=loginid%>" style = " width : 400px; border-color:antiquewhite;" placeholder="loginid"></p>
+    <p><input type="text" name="name" value="<%=name%>" style = " width : 400px; border-color:antiquewhite;" placeholder="name"></p>
+    <p><input type="text" name="company" value="<%=company%>" style = " width : 400px; border-color:antiquewhite;" placeholder="company"></p>
+    <p><input type="text" name="company_position" value="<%=company_position%>" style = " width : 400px; border-color:antiquewhite;" placeholder="company_position"></p>
+    <p><input type="text" name="email" value="<%=email%>" style = " width : 400px; border-color:antiquewhite;" placeholder="email"></p>
+    <p><input type="text" name="tel" value="<%=tel%>" style = " width : 400px; border-color:antiquewhite;" placeholder="tel"></p>
+    <p><input type="text" name="birth" value="<%=birth%>" style = " width : 400px; border-color:antiquewhite;" placeholder="birth"></p>
+    <p>by <%=id%></p>
+    <p><input type="submit"></p>
+  </form>

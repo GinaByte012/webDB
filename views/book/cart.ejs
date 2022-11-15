@@ -1,0 +1,65 @@
+
+
+<form>
+  <h1>장바구니</h1>
+  <br />
+  <table class="table">
+
+    <tr>
+      <td style="text-align: center;">날짜</td>
+      <td style="text-align: center;" colspan="2">책 제목</td>
+      <td style="text-align: center;">수량</td>
+      <td style="text-align: center;">가격</td>
+      <td></td>
+    </tr>
+<%
+    var i = 0;
+    var sum = 0;
+    var cnt = -1;
+    while(i < results.length){
+      var q = results[i].qty;
+      var p = results[i].price;
+      var pq = p * q;
+      var point = (results[i].price) * 0.1; 
+      cnt++;
+%>
+    <tr>
+      <td style="text-align: center; vertical-align: middle;"><%=results[i].cartdate%></td>
+      <td style="text-align: center; vertical-align: middle;">
+        <img src="/images/<%=results[i].img%>" style="width:80px; height:80px;">
+        </td>
+      <td style="text-align: center; vertical-align: middle;">
+        <%=results[i].name%>
+      </td>
+      <td style="text-align: center; vertical-align: middle;"><%=results[i].qty%></td>
+      <td style="text-align: center; vertical-align: middle;">
+        <%=results[i].price%>
+      </td>
+      <td style="text-align: left; vertical-align: middle;">
+        <button style="margin-right: 10px;" type="submit" formaction="/purchase_process/<%=cnt%>" formmethod="post">구매</button>
+        <button type="submit" formaction="/cart_delete/<%=results[i].cartid%>" formmethod="post">삭제</button>
+        <input type="hidden" name = "cartid" value="<%=results[i].cartid%>">
+        <input type="hidden" name = "bookid" value="<%=results[i].bookid%>">
+        <input type="hidden" name = "price" value="<%=results[i].price%>">
+        <input type="hidden" name = "point" value="<%=point%>">
+        <input type="hidden" name = "qty" value="<%=results[i].qty%>">
+      </td>
+    </tr>
+      <%
+      i++;
+      sum += pq;
+    }
+      %>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td colspan="3">
+        <br><br>
+        <h3 style="text-align: center; margin-left: 100px; font-weight: bold; display: inline;">총 금액 :&nbsp&nbsp&nbsp<%=sum%>&nbsp원</h3>
+        <button style="float: center; margin-left: 60px; font-size: 22px; width: 120px;" type="submit" formaction="/purchase_process/all" formmethod="post">전체 구매</button>
+      </td>
+    </tr>
+  </table>
+</form>

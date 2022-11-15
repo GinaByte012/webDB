@@ -1,0 +1,110 @@
+
+
+<form>
+  <h1>구매내역</h1>
+  <br />
+  <table class="table">
+
+    <tr>
+      <td style="text-align: center;">구매 날짜</td>
+    <%
+      if (id == "admin"){
+    %>
+      <td style="text-align: center;">구매자</td>
+    <%
+      }
+    %>
+      <td style="text-align: center;">책 제목</td>
+      <td style="text-align: center;">수량</td>
+      <td style="text-align: center;">가격</td>
+      <td colspan = "2" style="text-align: center;"></td>
+    </tr>
+<%
+    var i = 0;
+    var sum = 0;
+    while(i < results.length){
+      var q = results[i].qty;
+      var p = results[i].price;
+      var pq = p * q;
+%>
+      <tr>
+        <td style="text-align: center; vertical-align: middle;"><%=results[i].purchasedate%></td>
+        
+      <%
+        if (id == "admin"){
+      %>
+        <td style="text-align: center; vertical-align: middle;"><%=results[i].custid%></td>
+      <%
+        }
+      %>
+      <%
+        if(results[i].cancel == 'Y'){
+      %>
+        <div>
+          <td style="text-align: center; vertical-align: middle; color: gray;">
+            <img src="/images/<%=results[i].img%>" style="width:80px; height:80px;">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <i ><strike><%=results[i].name%></strike></i>
+          </td>
+          <td style="text-align: center; vertical-align: middle; color: gray;">
+            <i><strike><%=results[i].qty%></strike></i>
+          </td>
+          <td style="text-align: center; vertical-align: middle; color: gray;">
+            <i><strike><%=results[i].price%></strike></i>
+          </td>
+        </div>
+      <%
+        } else{
+      %>
+        <td style="text-align: center; vertical-align: middle;">
+          <img src="/images/<%=results[i].img%>" style="width:80px; height:80px;">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=results[i].name%>
+        </td>
+        <td style="text-align: center; vertical-align: middle;"><%=results[i].qty%></td>
+        <td style="text-align: center; vertical-align: middle;"><%=results[i].price%></td>
+      <%
+          }
+      %>
+        <td style="text-align: center; vertical-align: middle;">
+          <%
+            if(results[i].cancel == 'N'){
+          %>
+          <div>
+            <button type="submit" formaction="/purchase_delete/<%=results[i].purchaseid%>" formmethod="post">구매 취소</button>
+            <input type="hidden" name="purchaseid" value="<%=results[i].purchaseid%>">
+            <input type="hidden" name="custid" value="<%=results[i].custid%>">
+          </div>
+          <%
+            } else{
+          %>
+              취소
+          <%
+            }
+          %>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <%
+            if(results[i].refund == 'Y'){
+          %>
+              환불 완료
+          <%
+            } else if(results[i].cancel == 'Y' && results[i].refund == 'N'){
+          %>
+              환불 처리 중
+          <%
+            } else {
+          %>
+            &nbsp;
+          <%
+            }
+          %>
+        </td>
+    </tr>
+      <%
+      i++;
+      sum += pq;
+    }
+      %>
+
+  </table>
+</form>
